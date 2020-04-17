@@ -20,6 +20,6 @@ class EmployeeServiceImpl @Autowired constructor(private val employeeRepository:
     }
 
     override fun getEmployeeById(id: String): Employee? {
-        TODO("Not yet implemented")
+        return employeeRepository.findById(id).orElse(null)
     }
 }

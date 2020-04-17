@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import java.time.OffsetDateTime
+import javax.validation.Valid
+
 @Slf4j
 @RestController
 @RequestMapping("/reportedOverlimitTransaction")
@@ -19,5 +22,17 @@ class TransactionController @Autowired constructor(private val transactionServic
     fun getTransaction(@PathVariable  id : String) : ReportedOverlimitTransaction
     {
         return transactionService.getTransactionById(id) ?: throw ReportedOverlimiTransactionException("ID_NOT_FOUND")
+    }
+
+    @PutMapping("/{id}",produces = ["application/json"])
+    @ResponseStatus(HttpStatus.OK)
+    fun putTransaction(@PathVariable id: String, @RequestBody @Valid newTransaction: ReportedOverlimitTransaction) : ReportedOverlimitTransaction
+    {
+        println(newTransaction.id)
+        //println(newTransaction.amount?.amount)
+
+        newTransaction.modificationDate = OffsetDateTime.now()
+        //return transactionService.putTransaction(id,newTransaction)
+        return newTransaction
     }
 }

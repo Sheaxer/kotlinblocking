@@ -20,6 +20,16 @@ class ErrorHandler {
         return listOf(e.message)
     }
 
+    @ExceptionHandler(org.springframework.validation.BindException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleValidationException(ex: org.springframework.validation.BindException) : List<String?>
+    {
+        return ex.bindingResult
+                .allErrors.stream()
+                .map { obj: ObjectError -> obj.defaultMessage }
+                .collect(Collectors.toList())
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleValidationException(ex: MethodArgumentNotValidException) : List<String?>
