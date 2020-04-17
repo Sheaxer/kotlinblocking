@@ -8,6 +8,7 @@ import fei.stuba.gono.kotlin.blocking.json.*
 import fei.stuba.gono.kotlin.blocking.validation.annotations.DaysBeforeDate
 import fei.stuba.gono.kotlin.blocking.validation.annotations.MaxAmount
 import fei.stuba.gono.kotlin.blocking.validation.annotations.ValidAccount
+import fei.stuba.gono.kotlin.json.OffsetDateTimeDeserializer
 import fei.stuba.gono.kotlin.json.OffsetDateTimeSerializer
 import fei.stuba.gono.kotlin.pojo.*
 import org.springframework.data.annotation.Id
@@ -55,6 +56,7 @@ class ReportedOverlimitTransaction {
     var vault: List<Vault>? = null
 
     @JsonSerialize(using = OffsetDateTimeSerializer::class)
+    @JsonDeserialize(using= OffsetDateTimeDeserializer::class)
     var modificationDate: OffsetDateTime? = null
     get() = field?.toInstant()?.atOffset(ZoneOffset.of(this.zoneOffset)) ?: field
     set(modDate) {
