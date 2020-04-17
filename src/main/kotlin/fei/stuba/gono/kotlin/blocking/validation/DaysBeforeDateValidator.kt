@@ -1,6 +1,6 @@
-package fei.stuba.gono.kotlin.validation
+package fei.stuba.gono.kotlin.blocking.validation
 
-import fei.stuba.gono.kotlin.validation.annotations.DaysBeforeDate
+import fei.stuba.gono.kotlin.blocking.validation.annotations.DaysBeforeDate
 import org.springframework.beans.factory.annotation.Value
 import java.util.*
 import java.util.concurrent.TimeUnit

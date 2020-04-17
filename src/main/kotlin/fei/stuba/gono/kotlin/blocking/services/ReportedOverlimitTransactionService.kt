@@ -1,9 +1,9 @@
 package fei.stuba.gono.kotlin.blocking.services
 
-import fei.stuba.gono.kotlin.pojo.ReportedOverlimitTransaction
+import fei.stuba.gono.kotlin.blocking.pojo.ReportedOverlimitTransaction
 import org.springframework.stereotype.Service
 
-@Service
+
 interface ReportedOverlimitTransactionService {
 
     fun postTransaction(transaction: ReportedOverlimitTransaction) : ReportedOverlimitTransaction

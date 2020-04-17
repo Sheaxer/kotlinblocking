@@ -1,7 +1,7 @@
-package fei.stuba.gono.kotlin.validation
+package fei.stuba.gono.kotlin.blocking.validation
 
 import fei.stuba.gono.kotlin.pojo.Account
-import fei.stuba.gono.kotlin.validation.annotations.ValidAccount
+import fei.stuba.gono.kotlin.blocking.validation.annotations.ValidAccount
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
 

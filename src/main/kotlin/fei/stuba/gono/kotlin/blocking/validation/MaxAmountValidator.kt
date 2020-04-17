@@ -1,7 +1,7 @@
-package fei.stuba.gono.kotlin.validation
+package fei.stuba.gono.kotlin.blocking.validation
 
 import fei.stuba.gono.kotlin.pojo.Money
-import fei.stuba.gono.kotlin.validation.annotations.MaxAmount
+import fei.stuba.gono.kotlin.blocking.validation.annotations.MaxAmount
 import org.springframework.beans.factory.annotation.Value
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext

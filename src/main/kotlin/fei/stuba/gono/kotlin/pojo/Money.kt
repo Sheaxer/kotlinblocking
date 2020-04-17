@@ -1,9 +1,11 @@
 package fei.stuba.gono.kotlin.pojo
 
+import javax.validation.constraints.NotNull
+
 class Money {
-
-    var currency:Currency=Currency.EUR
-
-    var amount: Double? = 0.0
+    @NotNull
+    var currency:Currency?=null
+    @NotNull
+    var amount: Double? = null
 
 }

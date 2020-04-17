@@ -1,6 +1,6 @@
-package fei.stuba.gono.kotlin.validation
+package fei.stuba.gono.kotlin.blocking.validation
 
-import fei.stuba.gono.kotlin.validation.annotations.BankingDay
+import fei.stuba.gono.kotlin.blocking.validation.annotations.BankingDay
 import java.util.*
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext

@@ -1,17 +1,17 @@
-package fei.stuba.gono.kotlin.pojo
+package fei.stuba.gono.kotlin.blocking.pojo
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import fei.stuba.gono.kotlin.blocking.json.ClientDeserializer
-import fei.stuba.gono.kotlin.blocking.json.ClientSerializer
-import fei.stuba.gono.kotlin.validation.annotations.DaysBeforeDate
-import fei.stuba.gono.kotlin.validation.annotations.MaxAmount
-import fei.stuba.gono.kotlin.validation.annotations.ValidAccount
+import fei.stuba.gono.kotlin.blocking.json.*
+import fei.stuba.gono.kotlin.blocking.validation.annotations.DaysBeforeDate
+import fei.stuba.gono.kotlin.blocking.validation.annotations.MaxAmount
+import fei.stuba.gono.kotlin.blocking.validation.annotations.ValidAccount
+import fei.stuba.gono.kotlin.json.OffsetDateTimeSerializer
+import fei.stuba.gono.kotlin.pojo.*
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
-import org.springframework.data.mongodb.core.mapping.Document
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.util.*
@@ -21,19 +21,20 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
-@Document(value = "ReportedOverlimitTransactions")
+//@Document(value = "ReportedOverlimitTransactions")
+//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 class ReportedOverlimitTransaction {
     @Id
     var id: String?=null
 
     @NotNull(message = "ORDERCATEGORY_INVALID")
-    var orderCategory:OrderCategory? =null
+    var orderCategory: OrderCategory? =null
 
-    var state:State? = null
+    var state: State? = null
 
     @NotNull(message="SOURCEACCOUNT_INVALID")
     @ValidAccount(message = "SOURCEACCOUNT_INVALID")
-    var sourceAccount:Account? = null
+    var sourceAccount: Account? = null
 
     @DBRef
     @Valid
@@ -53,10 +54,11 @@ class ReportedOverlimitTransaction {
     @NotEmpty(message="VAULT_INVALID")
     var vault: List<Vault>? = null
 
-    var modificationDate: OffsetDateTime?
-    get() = this.modificationDate?.toInstant()?.atOffset(ZoneOffset.of(this.zoneOffset))
+    @JsonSerialize(using = OffsetDateTimeSerializer::class)
+    var modificationDate: OffsetDateTime? = null
+    get() = field?.toInstant()?.atOffset(ZoneOffset.of(this.zoneOffset)) ?: field
     set(modDate) {
-        this.modificationDate = modDate
+        field = modDate
         this.zoneOffset = modDate?.offset?.id ?: "+00:00"
     }
 
@@ -70,10 +72,14 @@ class ReportedOverlimitTransaction {
 
     @DBRef
     @NotNull(message="ORGANISATIONUNITID_NOT_VALID")
+    @JsonSerialize(using = OrganisationUnitSerializer::class)
+    @JsonDeserialize(using = OrganisationUnitDeserializer::class)
     var organisationUnitID: OrganisationUnit? = null
 
     @DBRef
     @NotNull(message="CREATEDBY_NOT_VALID")
+    @JsonDeserialize(using= EmployeeDeserializer::class)
+    @JsonSerialize(using = EmployeeSerializer::class)
     var createdBy: Employee? = null
 
     @JsonIgnore
