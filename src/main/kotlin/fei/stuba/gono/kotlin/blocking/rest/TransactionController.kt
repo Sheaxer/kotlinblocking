@@ -26,12 +26,13 @@ class TransactionController @Autowired constructor(private val transactionServic
 
     @PutMapping("/{id}",produces = ["application/json"])
     @ResponseStatus(HttpStatus.OK)
-    fun putTransaction(@PathVariable id: String, @RequestBody @Valid newTransaction: ReportedOverlimitTransaction) : ReportedOverlimitTransaction
+    fun putTransaction(@PathVariable id: String, @RequestBody @Valid newTransaction: ReportedOverlimitTransaction):
+            ReportedOverlimitTransaction
     {
-        println(newTransaction.id)
         //println(newTransaction.amount?.amount)
 
         newTransaction.modificationDate = OffsetDateTime.now()
+        newTransaction.id=id
         //return transactionService.putTransaction(id,newTransaction)
         return newTransaction
     }

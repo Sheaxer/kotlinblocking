@@ -3,9 +3,9 @@ package fei.stuba.gono.kotlin.pojo
 import com.fasterxml.jackson.annotation.JsonInclude
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
- class Account {
+data class Account(
 
-    var iban: String? = null
-    var bic: String? = null
+    var iban: String? = null,
+    var bic: String? = null,
     var localAccountNumber: String? = null
-}
+)

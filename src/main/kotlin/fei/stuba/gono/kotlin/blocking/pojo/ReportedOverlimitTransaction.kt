@@ -17,10 +17,7 @@ import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.util.*
 import javax.validation.Valid
-import javax.validation.constraints.FutureOrPresent
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.NotNull
+import javax.validation.constraints.*
 
 //@Document(value = "ReportedOverlimitTransactions")
 //@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -46,7 +43,8 @@ import javax.validation.constraints.NotNull
     @get:NotBlank(message = "IDENTIFICATIONID_INVALID")
      var identificationId: String? = null
 
-    @get:NotNull(message = "MONEY_INVALID")
+    @get:NotNull(message = "AMOUNT_INVALID")
+    @get:Positive(message="FIELD_INVALID")
     @get:MaxAmount(message = "FIELD_INVALID")
      var amount: Money?=null
 

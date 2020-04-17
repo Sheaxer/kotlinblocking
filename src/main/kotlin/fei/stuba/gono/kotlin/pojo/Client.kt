@@ -6,14 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document
 import javax.validation.constraints.NotBlank
 @Document(value = "clients")
 @TypeAlias(value = "client")
-class Client {
+data class Client (
     @NotBlank
-    var firstName: String? = null
+    var firstName: String? = null,
     @NotBlank
-    var surName: String? = null
-    @NotBlank
+    var surName: String? = null,
+
     @Id
     var id: String? = null
-
-
-}
+)

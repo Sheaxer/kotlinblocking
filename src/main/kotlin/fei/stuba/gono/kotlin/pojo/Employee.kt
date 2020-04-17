@@ -5,14 +5,14 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import javax.validation.constraints.NotBlank
 @Document(collection = "employees")
-class Employee {
+data class Employee (
     @Id
-    var id: String? = null
+    var id: String? = null,
 
     @NotBlank
-    var userName:String? = null
+    var username:String? = null,
 
     @NotBlank
     @JsonIgnore
     var password:String? = null
-}
+)
