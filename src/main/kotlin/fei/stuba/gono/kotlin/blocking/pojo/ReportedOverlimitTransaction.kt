@@ -34,7 +34,7 @@ import javax.validation.constraints.NotNull
     var state: State? = null
 
     @get:NotNull(message = "SOURCEACCOUNT_INVALID")
-    @ValidAccount(message = "SOURCEACCOUNT_INVALID")
+    @get:ValidAccount(message = "SOURCEACCOUNT_INVALID")
      var sourceAccount: Account? = null
 
     @DBRef
@@ -47,7 +47,7 @@ import javax.validation.constraints.NotNull
      var identificationId: String? = null
 
     @get:NotNull(message = "MONEY_INVALID")
-    @MaxAmount(message = "FIELD_INVALID")
+    @get:MaxAmount(message = "FIELD_INVALID")
      var amount: Money?=null
 
     @get:NotEmpty(message = "VAULT_INVALID")
@@ -64,7 +64,7 @@ import javax.validation.constraints.NotNull
 
     @get:NotNull(message = "TRANSFERDATE_INVALID")
     @FutureOrPresent(message = "INVALID_DATE_IN_PAST")
-    @DaysBeforeDate(message = "FIELD_INVALID_TOO_NEAR_IN_FUTURE")
+    @get:DaysBeforeDate(message = "FIELD_INVALID_TOO_NEAR_IN_FUTURE")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     var transferDate: Date? = null
 
