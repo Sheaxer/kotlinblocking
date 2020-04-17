@@ -16,7 +16,6 @@ class DaysBeforeDateValidator: ConstraintValidator<DaysBeforeDate, Date> {
     override fun isValid(p0: Date?, p1: ConstraintValidatorContext?): Boolean {
         if(p0 == null)
             return false
-        println("shalamana")
         val diff = p0.time - this.today.time
         if(diff < 0)
             return true
@@ -25,8 +24,7 @@ class DaysBeforeDateValidator: ConstraintValidator<DaysBeforeDate, Date> {
 
     override fun initialize(constraintAnnotation: DaysBeforeDate?) {
         this.today = Date()
-        this.cDays = if(constraintAnnotation?.days == 0L) this.cDays else
-            constraintAnnotation?.days!!
-        println(cDays)
+        this.cDays = if(constraintAnnotation?.days == null || constraintAnnotation.days == 0L) this.cDays else
+            constraintAnnotation.days
     }
 }
