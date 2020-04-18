@@ -8,4 +8,5 @@ data class Account(
     var iban: String? = null,
     var bic: String? = null,
     var localAccountNumber: String? = null
+
 )

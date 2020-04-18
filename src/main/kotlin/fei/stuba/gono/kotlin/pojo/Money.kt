@@ -1,11 +1,13 @@
 package fei.stuba.gono.kotlin.pojo
 
 import javax.validation.constraints.NotNull
+import javax.validation.constraints.Positive
 
 class Money {
-    @NotNull
+    @get:NotNull
     var currency:Currency?=null
-    @NotNull
+    @get:NotNull
+    @get:Positive(message = "FIELD_INVALID")
     var amount: Double? = null
 
 }

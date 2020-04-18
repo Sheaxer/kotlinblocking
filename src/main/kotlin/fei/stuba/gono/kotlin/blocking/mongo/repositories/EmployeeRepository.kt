@@ -6,5 +6,5 @@ import java.util.*
 
 interface EmployeeRepository : MongoRepository<Employee,String> {
 
-    fun findEmployeeByUserName(username: String) : Optional<Employee>
+    fun findEmployeeByUsername(username: String) : Optional<Employee>
 }

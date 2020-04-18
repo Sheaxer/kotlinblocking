@@ -12,7 +12,7 @@ class EmployeeServiceImpl @Autowired constructor(private val employeeRepository:
 
 
     override fun findEmployeeByUserName(userName: String): Employee? {
-       return employeeRepository.findEmployeeByUserName(userName).orElse(null)
+       return employeeRepository.findEmployeeByUsername(userName).orElse(null)
     }
 
     override fun saveEmployee(employee: Employee): Boolean {

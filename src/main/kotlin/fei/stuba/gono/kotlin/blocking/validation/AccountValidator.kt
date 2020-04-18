@@ -10,7 +10,7 @@ class AccountValidator : ConstraintValidator<ValidAccount, Account> {
         if (p0 != null)
         {
             if (p0.iban.isNullOrEmpty()) {
-                if (p0.bic.isNullOrEmpty() || p0.localAccountNumber.isNullOrEmpty())
+                if (p0.localAccountNumber.isNullOrEmpty())
                     return false
                 return true
             }
