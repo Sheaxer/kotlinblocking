@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import fei.stuba.gono.kotlin.blocking.json.*
-import fei.stuba.gono.kotlin.blocking.validation.annotations.CurrencyandCategory
-import fei.stuba.gono.kotlin.blocking.validation.annotations.DaysBeforeDate
-import fei.stuba.gono.kotlin.blocking.validation.annotations.MaxAmount
-import fei.stuba.gono.kotlin.blocking.validation.annotations.ValidAccount
+import fei.stuba.gono.kotlin.blocking.validation.annotations.*
 import fei.stuba.gono.kotlin.json.OffsetDateTimeDeserializer
 import fei.stuba.gono.kotlin.json.OffsetDateTimeSerializer
 import fei.stuba.gono.kotlin.pojo.*
@@ -34,7 +31,8 @@ import javax.validation.constraints.*
 
     @get:NotNull(message = "SOURCEACCOUNT_INVALID")
     @get:ValidAccount(message = "SOURCEACCOUNT_INVALID")
-   @JsonDeserialize(using = AccountDeserializer::class)
+    @get:OnlineAccount(message = "ACCOUNT_OFFLINE")
+    @JsonDeserialize(using = AccountDeserializer::class)
      var sourceAccount: Account? = null
 
     @DBRef
