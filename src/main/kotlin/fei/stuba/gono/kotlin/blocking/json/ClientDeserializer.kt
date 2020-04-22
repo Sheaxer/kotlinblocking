@@ -16,6 +16,6 @@ class ClientDeserializer(vc: Class<*>?) : StdDeserializer<Client>(vc) {
     var clientService: ClientService? = null
 
     override fun deserialize(p0: JsonParser?, p1: DeserializationContext?): Client? {
-        return p0?.text?.let { clientService?.getClientById(it) }
+        return p0?.text?.let { clientService?.getClientById(it)?.orElse(null) }
     }
 }

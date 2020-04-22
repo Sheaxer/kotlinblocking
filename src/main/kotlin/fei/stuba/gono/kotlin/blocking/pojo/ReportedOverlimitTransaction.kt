@@ -11,15 +11,16 @@ import fei.stuba.gono.kotlin.json.OffsetDateTimeSerializer
 import fei.stuba.gono.kotlin.pojo.*
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.DBRef
+import org.springframework.data.mongodb.core.mapping.Document
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.util.*
 import javax.validation.Valid
 import javax.validation.constraints.*
 
-//@Document(value = "ReportedOverlimitTransactions")
+@Document(collection = "reportedOverlimitTransactions")
 //@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-@CurrencyandCategory(message = "CATEGORY_INVALID")
+@CurrencyAndCategory(message = "CATEGORY_INVALID")
  class ReportedOverlimitTransaction {
     @Id
     var id: String? = null

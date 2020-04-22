@@ -17,6 +17,6 @@ class OrganisationUnitDeserializer(vc: Class<*>?) : StdDeserializer<Organisation
     var organisationUnitService : OrganisationUnitService? = null
 
     override fun deserialize(p0: JsonParser?, p1: DeserializationContext?): OrganisationUnit? {
-        return p0?.text?.let { organisationUnitService?.getOrganisationUnitById(it) }
+        return p0?.text?.let { organisationUnitService?.getOrganisationUnitById(it)?.orElse(null) }
     }
 }

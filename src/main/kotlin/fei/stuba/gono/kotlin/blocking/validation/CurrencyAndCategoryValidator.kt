@@ -1,16 +1,15 @@
 package fei.stuba.gono.kotlin.blocking.validation
 
 import fei.stuba.gono.kotlin.blocking.pojo.ReportedOverlimitTransaction
-import fei.stuba.gono.kotlin.blocking.validation.annotations.CurrencyandCategory
+import fei.stuba.gono.kotlin.blocking.validation.annotations.CurrencyAndCategory
 import fei.stuba.gono.kotlin.pojo.Currency
 import fei.stuba.gono.kotlin.pojo.OrderCategory
 import lombok.extern.slf4j.Slf4j
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
 @Slf4j
-class CurrencyAndCategoryValidator : ConstraintValidator<CurrencyandCategory,ReportedOverlimitTransaction> {
+class CurrencyAndCategoryValidator : ConstraintValidator<CurrencyAndCategory,ReportedOverlimitTransaction> {
     override fun isValid(p0: ReportedOverlimitTransaction?, p1: ConstraintValidatorContext?): Boolean {
-        println("Validation")
         if( p0?.orderCategory == null || p0.amount?.currency == null)
             return true
         else

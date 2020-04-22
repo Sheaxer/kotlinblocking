@@ -16,7 +16,7 @@ class EmployeeDeserializer(vc: Class<*>?) : StdDeserializer<Employee>(vc) {
     var employeeService: EmployeeService? = null
 
     override fun deserialize(p0: JsonParser?, p1: DeserializationContext?): Employee? {
-      return  p0?.text?.let { employeeService?.getEmployeeById(it) }
+      return  p0?.text?.let { employeeService?.getEmployeeById(it)?.orElse(null) }
     }
 
 }

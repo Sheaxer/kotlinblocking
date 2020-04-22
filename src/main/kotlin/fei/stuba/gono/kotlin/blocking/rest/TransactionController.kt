@@ -21,7 +21,8 @@ class TransactionController @Autowired constructor(private val transactionServic
     @ResponseStatus(HttpStatus.OK)
     fun getTransaction(@PathVariable  id : String) : ReportedOverlimitTransaction
     {
-        return transactionService.getTransactionById(id) ?: throw ReportedOverlimiTransactionException("ID_NOT_FOUND")
+        return transactionService.getTransactionById(id).orElseThrow{
+                ReportedOverlimiTransactionException("ID_NOT_FOUND")}
     }
 
     @PutMapping("/{id}",produces = ["application/json"])
@@ -33,7 +34,7 @@ class TransactionController @Autowired constructor(private val transactionServic
 
         newTransaction.modificationDate = OffsetDateTime.now()
         newTransaction.id=id
-        //return transactionService.putTransaction(id,newTransaction)
-        return newTransaction
+        return transactionService.putTransaction(id,newTransaction)
+        //return newTransaction
     }
 }

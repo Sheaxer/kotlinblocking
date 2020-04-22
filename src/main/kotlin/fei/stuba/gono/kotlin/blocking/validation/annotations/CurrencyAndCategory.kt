@@ -7,7 +7,7 @@ import kotlin.reflect.KClass
 @Target(AnnotationTarget.CLASS)
 @Constraint(validatedBy = [CurrencyAndCategoryValidator::class])
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-annotation class CurrencyandCategory ( val message : String = "",
-    val groups: Array<KClass<out Any>> = [],
-    val payload: Array<KClass<out Any>> = []
+annotation class CurrencyAndCategory (val message : String = "",
+                                      val groups: Array<KClass<out Any>> = [],
+                                      val payload: Array<KClass<out Any>> = []
 )

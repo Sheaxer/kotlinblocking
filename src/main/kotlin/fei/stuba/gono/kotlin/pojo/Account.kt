@@ -9,12 +9,12 @@ import org.springframework.data.mongodb.core.mapping.Document
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class Account(
 
-    var iban: String? = null,
-    var bic: String? = null,
-    var localAccountNumber: String? = null,
-    @JsonIgnore
-    var isActive : Boolean = true,
-    @Id
+        var iban: String? = null,
+        var bic: String? = null,
+        var localAccountNumber: String? = null,
+        @JsonIgnore
+    var isActive : Boolean? = null,
+        @Id
     @JsonIgnore
     var id: String? = null
 

@@ -5,13 +5,13 @@ import fei.stuba.gono.kotlin.blocking.services.OrganisationUnitService
 import fei.stuba.gono.kotlin.pojo.OrganisationUnit
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class OrganisationUnitServiceImpl @Autowired constructor(
         private val organisationUnitRepository: OrganisationUnitRepository
 ):OrganisationUnitService {
-    override fun getOrganisationUnitById(id: String): OrganisationUnit? {
-        return organisationUnitRepository.findById(id).orElse(null)
-    }
+    override fun getOrganisationUnitById(id: String): Optional<OrganisationUnit> = organisationUnitRepository.findById(id)
+
 
 }

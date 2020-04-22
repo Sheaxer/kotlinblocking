@@ -16,13 +16,15 @@ class OnlineAccountValidator : ConstraintValidator<OnlineAccount,Account> {
         if(p0 == null)
             return true
         var acc : Account? = null
-        if(p0.iban != null)
-            acc = accountService?.getAccountByIban(p0.iban!!)
-        else if (p0.localAccountNumber != null)
-            acc = accountService?.getAccountByLocalNumber(p0.localAccountNumber!!)
+        if(p0.iban != null) {
+            acc = accountService?.getAccountByIban(p0.iban!!)?.orElse(null)
+        } else if (p0.localAccountNumber != null) {
+            acc = accountService?.getAccountByLocalNumber(p0.localAccountNumber!!)?.orElse(null)
+        }
 
-        if(acc == null)
+        if(acc == null) {
             return false
-        return acc.isActive
+        }
+        return acc.isActive ?: false
     }
 }
