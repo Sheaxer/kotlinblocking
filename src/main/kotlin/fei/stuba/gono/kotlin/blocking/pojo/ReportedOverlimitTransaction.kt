@@ -45,9 +45,9 @@ import javax.validation.constraints.*
     @get:NotBlank(message = "IDENTIFICATIONID_INVALID")
      var identificationId: String? = null
 
-    @get:NotNull(message = "AMOUNT_INVALID")
+    @get:NotNull(message = "FIELD_INVALID")
     @get:MaxAmount(message = "FIELD_INVALID")
-    @Valid
+    @get:Limit(message = "LIMIT_EXCEEDED")
      var amount: Money?=null
 
     @get:NotEmpty(message = "VAULT_INVALID")
