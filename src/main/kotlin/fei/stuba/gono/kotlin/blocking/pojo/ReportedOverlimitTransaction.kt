@@ -28,13 +28,14 @@ import javax.validation.constraints.*
     @get:NotNull(message = "ORDERCATEGORY_INVALID")
      var orderCategory: OrderCategory? = null
 
+    @get:NotNull(message = "STATE_INVALID")
     var state: State? = null
 
     @get:NotNull(message = "SOURCEACCOUNT_INVALID")
     @get:ValidAccount(message = "SOURCEACCOUNT_INVALID")
     @get:OnlineAccount(message = "ACCOUNT_OFFLINE")
     @JsonDeserialize(using = AccountDeserializer::class)
-     var sourceAccount: Account? = null
+     var sourceAccount: AccountNO? = null
 
     @DBRef
     @get:NotNull(message = "CLIENTID_NOT_VALID")
@@ -45,13 +46,21 @@ import javax.validation.constraints.*
     @get:NotBlank(message = "IDENTIFICATIONID_INVALID")
      var identificationId: String? = null
 
+    @get:NotEmpty(message = "VAULT_INVALID")
+    var vault: List<Vault>? = null
+
     @get:NotNull(message = "FIELD_INVALID")
     @get:MaxAmount(message = "FIELD_INVALID")
     @get:Limit(message = "LIMIT_EXCEEDED")
      var amount: Money?=null
 
-    @get:NotEmpty(message = "VAULT_INVALID")
-     var vault: List<Vault>? = null
+    @get:NotNull(message = "TRANSFERDATE_INVALID")
+    @FutureOrPresent(message = "INVALID_DATE_IN_PAST")
+    @get:DaysBeforeDate(message = "FIELD_INVALID_TOO_NEAR_IN_FUTURE")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    var transferDate: Date? = null
+
+    var note: String? = null
 
     @JsonSerialize(using = OffsetDateTimeSerializer::class)
     @JsonDeserialize(using = OffsetDateTimeDeserializer::class)
@@ -61,14 +70,6 @@ import javax.validation.constraints.*
             field = modDate
             zoneOffset = modDate.offset.id
         }
-
-    @get:NotNull(message = "TRANSFERDATE_INVALID")
-    @FutureOrPresent(message = "INVALID_DATE_IN_PAST")
-    @get:DaysBeforeDate(message = "FIELD_INVALID_TOO_NEAR_IN_FUTURE")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    var transferDate: Date? = null
-
-    var note: String? = null
 
     @DBRef
     @get:NotNull(message = "ORGANISATIONUNITID_NOT_VALID")

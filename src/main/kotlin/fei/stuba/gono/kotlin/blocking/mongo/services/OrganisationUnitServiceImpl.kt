@@ -11,7 +11,8 @@ import java.util.*
 class OrganisationUnitServiceImpl @Autowired constructor(
         private val organisationUnitRepository: OrganisationUnitRepository
 ):OrganisationUnitService {
-    override fun getOrganisationUnitById(id: String): Optional<OrganisationUnit> = organisationUnitRepository.findById(id)
+    override fun getOrganisationUnitById(id: String):
+            Optional<OrganisationUnit> = organisationUnitRepository.findById(id)
 
 
 }
