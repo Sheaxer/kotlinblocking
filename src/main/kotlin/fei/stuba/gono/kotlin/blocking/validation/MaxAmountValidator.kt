@@ -6,8 +6,17 @@ import org.springframework.beans.factory.annotation.Value
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
 
+/***
+ * Class implementing the validation for MaxAmount annotation. Valid amount on a withdrawal must be bigger than zero
+ * and less than maximal value.
+ * @see MaxAmount
+ */
 class MaxAmountValidator : ConstraintValidator<MaxAmount, Money> {
 
+    /***
+     * Maximal value of valid amount on a withdrawal. Set with either maxAmount property of MaxAmount annotation
+     *      * or reportedOverlimitTransaction.maxAmount property, default 999999999.99
+     */
     @Value("\${reportedOverlimitTransaction.maxAmount:999999999.99}")
     private var v :Double = 0.0
 

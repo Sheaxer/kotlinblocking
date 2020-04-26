@@ -6,10 +6,19 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
-
+/***
+ * Class implementing validation for DaysBeforeDate annotation. Date must be at least x number of in the future
+ * from the moment of validation.
+ * @see DaysBeforeDate
+ */
 class DaysBeforeDateValidator: ConstraintValidator<DaysBeforeDate, Date> {
 
     var today: Date = Date()
+
+    /***
+     * Minimal number of days - days property of DaysBeforeDate annotation or if not used
+     * reportedOverlimitTransaction.daysBefore property, default 3.
+     */
     @Value("\${reportedOverlimitTransaction.daysBefore:3}")
     var cDays:Long = 3L
 

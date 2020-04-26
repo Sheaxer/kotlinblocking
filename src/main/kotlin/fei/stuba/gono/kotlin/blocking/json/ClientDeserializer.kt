@@ -7,6 +7,11 @@ import fei.stuba.gono.kotlin.pojo.Client
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer as StdDeserializer
+/***
+ * Class that deserializes Client object from json based on its id. Retrieves the entity with the id using
+ * ClientService.
+ * @see ClientService
+ */
 @Component
 class ClientDeserializer(vc: Class<*>?) : StdDeserializer<Client>(vc) {
 

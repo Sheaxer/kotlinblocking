@@ -1,9 +1,11 @@
 package fei.stuba.gono.kotlin.pojo
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
-import org.springframework.data.annotation.Id
 
+/***
+ * Class representing AccountNO - Account number of the client
+ * (type: IBAN with optional BIC or local account number) where withdraw will be realised
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class AccountNO(
 

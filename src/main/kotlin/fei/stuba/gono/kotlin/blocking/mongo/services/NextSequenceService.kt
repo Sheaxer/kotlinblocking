@@ -14,10 +14,18 @@ import org.springframework.data.mongodb.core.query.Query.query
 import org.springframework.data.mongodb.core.query.Update
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
-
+/***
+ * Class that allows to perform operations on MongoDB.
+ */
 @Service
 class NextSequenceService @Autowired constructor(private val mongoOperations: MongoOperations){
 
+    /***
+     * Finds the sequence, gets id that will be used to insert new Document into MongoDB and updates the sequence
+     * to generate new id.
+     * @param seqName name of the sequence where to find next value of id
+     * @return new id to be used to insert new Document into MongoDB
+     */
     private fun getNextSequence(seqName: String): String {
         val counter = mongoOperations.findAndModify(
                 query(Criteria.where("_id").`is`(seqName)),
@@ -30,7 +38,11 @@ class NextSequenceService @Autowired constructor(private val mongoOperations: Mo
         }
         return counter.seq.toString()
     }
-
+    /***
+     * Sets value of sequence in MongoDB.
+     * @param seqName name of the sequence
+     * @param value value that the sequence will be set to
+     */
     private fun setNextSequence(seqName: String, value: String)
     {
          mongoOperations.findAndModify(
@@ -40,7 +52,13 @@ class NextSequenceService @Autowired constructor(private val mongoOperations: Mo
                 SequenceId::class.java
         )
     }
-
+    /***
+     * Generates the next id to be used when saving entity using given repository and updates the sequence
+     * with the given name.
+     * @param rep repository where the entity will be saved.
+     * @param sequenceName name of the sequence that holds the maximal value of id of entities saved in repository.
+     * @return new id value.
+     */
     fun getNewId(rep : CrudRepository<*,String>, sequenceName: String) : String
     {
         var newId = this.getNextSequence(sequenceName)
@@ -57,7 +75,11 @@ class NextSequenceService @Autowired constructor(private val mongoOperations: Mo
         }
         return newId
     }
-
+    /***
+     * Finds the maximal value of id of saved entities sof given class.
+     * @param rep class of entities.
+     * @return maximal value of id of saved entities of given class.
+     */
     private fun lastId(rep: Class<*>): String {
         return mongoOperations.execute(rep) { mongoCollection: MongoCollection<Document> ->
             val doc = mongoCollection.find().projection(Projections.include("_id"))
@@ -76,7 +98,11 @@ class NextSequenceService @Autowired constructor(private val mongoOperations: Mo
             lastVal.toString()
         }!!
     }
-
+    /***
+     * Checks if the sequence with given name needs to update its maximal id value by the given value.
+     * @param seqName - name of the sequence, must not be null.
+     * @param value - value to be checked against maximal id value, must not be null.
+     */
     fun needsUpdate(seqName: String, value: String)
     {
         try {

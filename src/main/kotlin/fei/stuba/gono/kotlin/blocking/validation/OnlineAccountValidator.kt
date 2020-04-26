@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
 
+/***
+ * Class implementing validation of OnlineAccount annotation. AccountNo must represent a saved account
+ * that is online.
+ */
 class OnlineAccountValidator : ConstraintValidator<OnlineAccount,AccountNO> {
 
     @Autowired

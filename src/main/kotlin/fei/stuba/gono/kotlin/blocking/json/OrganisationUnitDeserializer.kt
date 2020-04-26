@@ -7,7 +7,11 @@ import fei.stuba.gono.kotlin.blocking.services.OrganisationUnitService
 import fei.stuba.gono.kotlin.pojo.OrganisationUnit
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-
+/***
+ * Class that deserializes OrganisationUnit object from json based on its id. Retrieves the entity with the id using
+ * OrganisationUnitService.
+ * @see OrganisationUnitService
+ */
 @Component
 class OrganisationUnitDeserializer(vc: Class<*>?) : StdDeserializer<OrganisationUnit>(vc) {
 

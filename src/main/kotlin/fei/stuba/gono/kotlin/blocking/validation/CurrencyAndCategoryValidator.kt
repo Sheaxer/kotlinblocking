@@ -7,6 +7,11 @@ import fei.stuba.gono.kotlin.pojo.OrderCategory
 import lombok.extern.slf4j.Slf4j
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
+/***
+ * Class implementing validation of CurrencyAndCategory annotation for ReportedOverlimitTransaction.
+ * Transaction cannot have Category DOMESTIC and use non EUR currency or have category FX and currency EUR.
+ * @see CurrencyAndCategory
+ */
 @Slf4j
 class CurrencyAndCategoryValidator : ConstraintValidator<CurrencyAndCategory,ReportedOverlimitTransaction> {
     override fun isValid(p0: ReportedOverlimitTransaction?, p1: ConstraintValidatorContext?): Boolean {

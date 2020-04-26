@@ -6,13 +6,15 @@ import fei.stuba.gono.kotlin.pojo.Employee
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
-
+/***
+ * Implementation of EmployeeService for use with MongoDB.
+ */
 @Service
 class EmployeeServiceImpl @Autowired constructor(private val employeeRepository: EmployeeRepository):
         EmployeeService {
 
 
-    override fun findEmployeeByUserName(userName: String): Optional<Employee> =
+    override fun findEmployeeByUsername(userName: String): Optional<Employee> =
             employeeRepository.findEmployeeByUsername(userName)
 
 

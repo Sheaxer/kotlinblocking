@@ -4,7 +4,11 @@ import fei.stuba.gono.kotlin.blocking.validation.annotations.BankingDay
 import java.util.*
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
-
+/***
+ * Class implementing the validation of BankingDay annotation of Date class. Date must not be
+ * on a weekend.
+ * @see BankingDay
+ */
 class BankingDayValidator : ConstraintValidator<BankingDay, Date> {
     override fun isValid(p0: Date?, p1: ConstraintValidatorContext?): Boolean {
         val c = Calendar.getInstance()

@@ -6,7 +6,10 @@ import fei.stuba.gono.kotlin.pojo.Client
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
-
+/***
+ * Implementation of ClientService for use with MongoDB.
+ * @see ClientService
+ */
 @Service
 class ClientServiceImpl @Autowired constructor(private val clientRepository: ClientRepository) : ClientService {
 

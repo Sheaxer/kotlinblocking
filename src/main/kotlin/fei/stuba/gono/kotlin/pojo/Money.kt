@@ -3,11 +3,11 @@ package fei.stuba.gono.kotlin.pojo
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
 
-class Money {
-    @get:NotNull
-    var currency:Currency?=null
-    @get:NotNull
-    @get:Positive(message = "FIELD_INVALID")
+/***
+ * Class representing withdraw amount in defined currency (only EUR for DOMESTIC) and with precision.
+ */
+data class Money (
+    @get:NotNull(message = "CURRENCY_INVALID")
+    var currency:Currency?=null,
     var amount: Double? = null
-
-}
+)

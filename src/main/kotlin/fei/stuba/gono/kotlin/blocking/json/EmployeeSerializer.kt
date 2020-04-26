@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import fei.stuba.gono.kotlin.pojo.Employee
 import org.springframework.stereotype.Component
-
+/***
+ * Class that serializes Employee by writing its id into the JsonGenerator.
+ */
 @Component
 class EmployeeSerializer(t: Class<Employee>?) : StdSerializer<Employee>(t) {
     constructor(): this(null)

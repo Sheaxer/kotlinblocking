@@ -4,6 +4,10 @@ import fei.stuba.gono.kotlin.blocking.validation.AccountValidator
 import javax.validation.Constraint
 import kotlin.reflect.KClass
 
+/***
+ * Annotation for validation of AccountNO - must contain either a IBAN with optional
+ * BIC, or local account number.
+ */
 @Target(AnnotationTarget.PROPERTY_GETTER)
 @Constraint(validatedBy = [AccountValidator::class])
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)

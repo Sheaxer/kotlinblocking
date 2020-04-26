@@ -1,7 +1,8 @@
 package fei.stuba.gono.kotlin.pojo
 
-import lombok.NoArgsConstructor
-
+/***
+ * Class representing structure for vault. Detail information about withdraw amount.
+ */
 class Vault {
     var type: VaultType? = null
     var number: Int = 0

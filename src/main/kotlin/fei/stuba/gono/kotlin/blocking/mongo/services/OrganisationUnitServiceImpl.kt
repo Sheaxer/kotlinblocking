@@ -6,7 +6,10 @@ import fei.stuba.gono.kotlin.pojo.OrganisationUnit
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
-
+/***
+ * Implementation of OrganisationUnitService for use with MongoDB.
+ * @see OrganisationUnitService
+ */
 @Service
 class OrganisationUnitServiceImpl @Autowired constructor(
         private val organisationUnitRepository: OrganisationUnitRepository

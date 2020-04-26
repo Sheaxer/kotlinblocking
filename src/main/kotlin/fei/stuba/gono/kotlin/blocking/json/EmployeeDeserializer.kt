@@ -7,7 +7,10 @@ import fei.stuba.gono.kotlin.blocking.services.EmployeeService
 import fei.stuba.gono.kotlin.pojo.Employee
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-
+/***
+ * Class that deserializes Employee entity by id. Retrieves the entity with the given id using the EmployeeService.
+ * @see EmployeeService
+ */
 @Component
 class EmployeeDeserializer(vc: Class<*>?) : StdDeserializer<Employee>(vc) {
 

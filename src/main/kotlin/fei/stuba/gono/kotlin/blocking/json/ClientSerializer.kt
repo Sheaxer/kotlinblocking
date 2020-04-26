@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import fei.stuba.gono.kotlin.pojo.Client
 import org.springframework.stereotype.Component
-
+/***
+ * Class to serialize Client by writing its id into JsonGenerator.
+ */
 @Component
 class ClientSerializer(t: Class<Client>?) : StdSerializer<Client>(t) {
     constructor() : this(null)

@@ -9,6 +9,12 @@ import lombok.extern.slf4j.Slf4j
 import org.springframework.stereotype.Component
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+
+/***
+ * Custom serialization of OffsetDateTime to JSON. JSON format is yy-MM-ddThh:mm:ssOffset.
+ * @see OffsetDateTime
+ * @see StdSerializer
+ */
 @Slf4j
 @Component
 class OffsetDateTimeSerializer(t: Class<OffsetDateTime>?) : StdSerializer<OffsetDateTime>(t) {

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import fei.stuba.gono.kotlin.pojo.OrganisationUnit
 import org.springframework.stereotype.Component
-
+/***
+ *  Class that serializes OrganisationUnit by writing its id into the JsonGenerator.
+ */
 @Component
 class OrganisationUnitSerializer(t: Class<OrganisationUnit>?) : StdSerializer<OrganisationUnit>(t) {
 

@@ -4,7 +4,11 @@ import fei.stuba.gono.kotlin.pojo.OrganisationUnit
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
-
+/***
+ * Interface extending CrudRepository for OrganisationUnit.
+ * @see OrganisationUnit
+ * @see CrudRepository
+ */
 @Repository
 interface OrganisationUnitRepository : CrudRepository<OrganisationUnit,String> {
 }
