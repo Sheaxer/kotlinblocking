@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
-
+/***
+ * Class representing a banking account.
+ */
 @Document(collection = "accounts")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class Account(
