@@ -39,7 +39,7 @@ class ErrorHandler {
     @ExceptionHandler(ReportedOverlimitTransactionBadRequestException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleReportedOverlimitTransactionBadRequestException
-            (ex : ReportedOverlimitTransactionNotFoundException) : List<String?>
+            (ex : ReportedOverlimitTransactionBadRequestException) : List<String?>
     {
         return listOf(ex.message)
     }
