@@ -1,9 +1,10 @@
-package fei.stuba.gono.kotlin.security
+package fei.stuba.gono.kotlin.blocking.security
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.fasterxml.jackson.databind.ObjectMapper
 import fei.stuba.gono.kotlin.pojo.Employee
+import fei.stuba.gono.kotlin.security.SecurityConstants
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -36,10 +37,13 @@ class JWTAuthenticationFilter(private val authenticationManager1: Authentication
         ))
     }
 
-    override fun successfulAuthentication(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain, authResult: Authentication) {
+    override fun successfulAuthentication(request: HttpServletRequest,
+                                          response: HttpServletResponse,
+                                          chain: FilterChain,
+                                          authResult: Authentication) {
         val token = JWT.create().withSubject((authResult.principal as User).username).
                 withExpiresAt(Date(System.currentTimeMillis() + SecurityConstants.EXPIRE_LENGTH)).
                 sign(Algorithm.HMAC512(SecurityConstants.SECRET_KEY.toByteArray()))
-        response.addHeader(SecurityConstants.HEADER_STRING,SecurityConstants.TOKEN_PREFIX + token)
+        response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token)
     }
 }

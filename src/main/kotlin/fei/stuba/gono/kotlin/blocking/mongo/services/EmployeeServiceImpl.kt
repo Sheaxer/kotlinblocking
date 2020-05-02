@@ -17,7 +17,7 @@ import javax.validation.Valid
 @Service
 class EmployeeServiceImpl @Autowired constructor(private val employeeRepository: EmployeeRepository,
         private val nextSequenceService: NextSequenceService,
-        private val bCryptPasswordEncoder: BCryptPasswordEncoder?):
+        private val bCryptPasswordEncoder: BCryptPasswordEncoder):
         EmployeeService {
 
 
@@ -35,7 +35,7 @@ class EmployeeServiceImpl @Autowired constructor(private val employeeRepository:
         if(employeeRepository.existsByUsername(employee.username!!))
             return false
         employee.id = nextSequenceService.getNewId(employeeRepository,sequenceName)
-        employee.password = bCryptPasswordEncoder!!.encode(employee.password)
+        employee.password = bCryptPasswordEncoder.encode(employee.password)
         employeeRepository.save(employee)
         return true
     }

@@ -1,4 +1,4 @@
-package fei.stuba.gono.kotlin.security
+package fei.stuba.gono.kotlin.blocking.security
 
 import fei.stuba.gono.kotlin.blocking.services.EmployeeService
 import org.springframework.beans.factory.annotation.Autowired
