@@ -31,13 +31,12 @@ class EmployeeServiceImpl @Autowired constructor(private val employeeRepository:
             employeeRepository.findEmployeeByUsername(userName)
 
 
-    override fun saveEmployee(@Valid employee: Employee): Boolean {
+    override fun saveEmployee(@Valid employee: Employee): Employee? {
         if(employeeRepository.existsByUsername(employee.username!!))
-            return false
+            return null
         employee.id = nextSequenceService.getNewId(employeeRepository,sequenceName)
         employee.password = bCryptPasswordEncoder.encode(employee.password)
-        employeeRepository.save(employee)
-        return true
+        return employeeRepository.save(employee)
     }
 
     override fun getEmployeeById(id: String): Optional<Employee> =  employeeRepository.findById(id)

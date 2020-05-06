@@ -12,9 +12,8 @@ import javax.validation.Valid
 class SignUpController @Autowired constructor(private val employeeService: EmployeeService) {
     @PostMapping(value = ["/signup"], consumes = ["application/json"])
     @ResponseBody
-    fun signUp(@RequestBody @Valid user: Employee): String? {
-        return if (employeeService.saveEmployee(user))
-            "SUCCESSFULLY_REGISTERED" else
-            throw ReportedOverlimitTransactionBadRequestException("USERNAME_ALREADY_EXISTS")
+    fun signUp(@RequestBody @Valid user: Employee): Employee {
+        val e= employeeService.saveEmployee(user)
+        return e ?: throw ReportedOverlimitTransactionBadRequestException("USERNAME_ALREADY_EXISTS")
     }
 }

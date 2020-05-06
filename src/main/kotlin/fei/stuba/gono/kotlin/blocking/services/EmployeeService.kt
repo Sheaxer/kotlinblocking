@@ -20,7 +20,7 @@ interface EmployeeService {
      * @param employee entity to be saved.
      * @return true if saved, false if not - employee already exists.
      */
-    fun saveEmployee(employee: Employee): Boolean
+    fun saveEmployee(employee: Employee): Employee?
 
     /***
      * Finds the entity with the given id.
