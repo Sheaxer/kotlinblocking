@@ -13,6 +13,8 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import org.springframework.security.core.userdetails.User
+import java.io.IOException
+import java.lang.RuntimeException
 import java.util.*
 
 
@@ -32,9 +34,15 @@ class JWTAuthenticationFilter(private val authenticationManager1: Authentication
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
        // return super.attemptAuthentication(request, response)
         val creds = ObjectMapper().readValue(request.inputStream,Employee::class.java)
-        return authenticationManager1.authenticate(UsernamePasswordAuthenticationToken(
-                creds.username,creds.password, mutableListOf()
-        ))
+        try {
+            return authenticationManager1.authenticate(UsernamePasswordAuthenticationToken(
+                    creds.username, creds.password, mutableListOf()
+            ))
+        }
+        catch (ex: IOException)
+        {
+            throw RuntimeException(ex)
+        }
     }
 
     override fun successfulAuthentication(request: HttpServletRequest,

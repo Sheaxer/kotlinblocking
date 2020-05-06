@@ -28,4 +28,6 @@ interface EmployeeService {
      * @return Optional containing the entity or Optional.empty() if no entity was found.
      */
     fun getEmployeeById(id:String) : Optional<Employee>
+
+    fun existsByUsername(userName: String):Boolean
 }

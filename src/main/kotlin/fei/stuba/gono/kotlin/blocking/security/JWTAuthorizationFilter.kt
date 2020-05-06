@@ -2,7 +2,9 @@ package fei.stuba.gono.kotlin.blocking.security
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import fei.stuba.gono.kotlin.blocking.services.EmployeeService
 import fei.stuba.gono.kotlin.security.SecurityConstants
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -12,8 +14,9 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthorizationFilter(authenticationManager: AuthenticationManager):
+class JWTAuthorizationFilter (authenticationManager: AuthenticationManager, private val employeeService: EmployeeService):
         BasicAuthenticationFilter(authenticationManager){
+
 
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
@@ -39,7 +42,10 @@ class JWTAuthorizationFilter(authenticationManager: AuthenticationManager):
                         .build()
                         .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
                         .subject
-                UsernamePasswordAuthenticationToken(user, null, ArrayList())
+                if(employeeService.existsByUsername(user))
+                    UsernamePasswordAuthenticationToken(user, null, ArrayList())
+                else null
+
             }catch (ex: com.auth0.jwt.exceptions.JWTDecodeException) {
                 null
             }

@@ -2,6 +2,7 @@ package fei.stuba.gono.kotlin.blocking.security
 
 import fei.stuba.gono.kotlin.blocking.security.JWTAuthenticationFilter
 import fei.stuba.gono.kotlin.blocking.security.JWTAuthorizationFilter
+import fei.stuba.gono.kotlin.blocking.services.EmployeeService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
@@ -20,7 +21,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @EnableWebSecurity
 class WebSecurity @Autowired constructor(@Qualifier("userDetailsServiceImpl") private val
                   userDetailsService: UserDetailsService,
-                                         private val bCryptPasswordEncoder: BCryptPasswordEncoder): WebSecurityConfigurerAdapter() {
+                                         private val bCryptPasswordEncoder: BCryptPasswordEncoder):
+        WebSecurityConfigurerAdapter() {
 
 
 
@@ -34,7 +36,8 @@ class WebSecurity @Autowired constructor(@Qualifier("userDetailsServiceImpl") pr
                 anyRequest().authenticated().
                 and().
                 addFilter(JWTAuthenticationFilter(authenticationManager())).
-                addFilter(JWTAuthorizationFilter(authenticationManager())).
+                addFilter(JWTAuthorizationFilter(authenticationManager(),
+                        applicationContext.getBean(EmployeeService::class.java))).
                 sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
 

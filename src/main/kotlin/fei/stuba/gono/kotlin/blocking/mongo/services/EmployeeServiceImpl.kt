@@ -41,4 +41,6 @@ class EmployeeServiceImpl @Autowired constructor(private val employeeRepository:
     }
 
     override fun getEmployeeById(id: String): Optional<Employee> =  employeeRepository.findById(id)
+
+    override fun existsByUsername(userName: String): Boolean = employeeRepository.existsByUsername(userName)
 }
