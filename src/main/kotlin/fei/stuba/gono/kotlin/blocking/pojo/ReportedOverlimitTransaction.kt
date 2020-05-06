@@ -39,7 +39,6 @@ import javax.validation.constraints.*
     /***
      * State of order presented to user on FE, value is mapped based on provided BE technical states.
      */
-    @get:NotNull(message = "STATE_INVALID")
     var state: State? = null
 
     /***

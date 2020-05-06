@@ -58,7 +58,11 @@ repository: ReportedOverlimitTransactionRepository, private val nextSequenceServ
     override fun putTransaction(id: String, transaction: ReportedOverlimitTransaction): ReportedOverlimitTransaction {
         transaction.id = id
         transaction.modificationDate = OffsetDateTime.now()
+        if(!repository.existsById(id))
+            transaction.state=State.CREATED
         nextSequenceService.needsUpdate(sequenceName,id)
+        if(transaction.state == null)
+            transaction.state = State.CREATED
         return repository.save(transaction)
     }
     /***
