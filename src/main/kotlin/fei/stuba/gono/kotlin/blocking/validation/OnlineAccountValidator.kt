@@ -20,16 +20,17 @@ class OnlineAccountValidator : ConstraintValidator<OnlineAccount,AccountNO> {
     override fun isValid(p0: AccountNO?, p1: ConstraintValidatorContext?): Boolean {
         if(p0 == null)
             return true
-        var acc : Account? = null
-        if(p0.iban != null) {
-            acc = accountService?.getAccountByIban(p0.iban!!)?.orElse(null)
-        } else if (p0.localAccountNumber != null) {
-            acc = accountService?.getAccountByLocalNumber(p0.localAccountNumber!!)?.orElse(null)
+        val acc : Account? = when {
+            p0.iban != null -> {
+                accountService?.getAccountByIban(p0.iban!!)?.orElse(null)
+            }
+            p0.localAccountNumber != null -> {
+                accountService?.getAccountByLocalNumber(p0.localAccountNumber!!)?.orElse(null)
+            }
+            else -> return true
         }
+                ?: return false
 
-        if(acc == null) {
-            return false
-        }
-        return acc.isActive ?: false
+        return acc?.isActive ?: false
     }
 }

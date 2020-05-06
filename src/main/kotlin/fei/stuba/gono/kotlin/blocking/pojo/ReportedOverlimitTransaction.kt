@@ -71,6 +71,7 @@ import javax.validation.constraints.*
      * Structure for vault. Detail information about withdrow amount.
      */
     @get:NotEmpty(message = "VAULT_INVALID")
+    @Valid
     var vault: List<Vault>? = null
 
     /***
@@ -91,6 +92,7 @@ import javax.validation.constraints.*
     @FutureOrPresent(message = "INVALID_DATE_IN_PAST")
     @get:DaysBeforeDate(message = "FIELD_INVALID_TOO_NEAR_IN_FUTURE")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @get:BankingDay(message = "INVALID_DATE")
     var transferDate: Date? = null
 
     var note: String? = null
@@ -113,7 +115,7 @@ import javax.validation.constraints.*
      * Object representing organisation unit where client want to realize withdraw.
      */
     @DBRef
-    @get:NotNull(message = "ORGANISATIONUNITID_NOT_VALID")
+    @get:NotNull(message = "ORGANISATIONUNITID_INVALID")
     @JsonSerialize(using = OrganisationUnitSerializer::class)
     @JsonDeserialize(using = OrganisationUnitDeserializer::class)
      var organisationUnitID: OrganisationUnit? = null
@@ -122,7 +124,7 @@ import javax.validation.constraints.*
      * Object representing employer who entered an transaction. In this case report over limit withdraw.
      */
     @DBRef
-    @get:NotNull(message = "CREATEDBY_NOT_VALID")
+    @get:NotNull(message = "CREATEDBY_INVALID")
     @JsonDeserialize(using = EmployeeDeserializer::class)
     @JsonSerialize(using = EmployeeSerializer::class)
      var createdBy: Employee? = null
