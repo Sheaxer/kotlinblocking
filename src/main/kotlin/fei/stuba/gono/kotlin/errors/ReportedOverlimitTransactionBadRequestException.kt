@@ -3,7 +3,8 @@ package fei.stuba.gono.kotlin.errors
 import java.lang.RuntimeException
 
 /***
- * Custom exception when cannot perform operation on ReportedOverlimitTransaction entity.
+ * Custom Exception used when ReportedOverlimitTransaction entity is not found.
+ * Vlastná výnimka vyvolaná keď entita nebola nájdená.
  */
 class ReportedOverlimitTransactionBadRequestException(message: String?)  : RuntimeException(message) {
     

@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer as StdDeserializer
 /***
- * Class that deserializes Client object from json based on its id. Retrieves the entity with the id using
- * ClientService.
+ * Class that deserializes Client object from json based on its id. Retrieves the entity with the
+ * id retireved from JsonParser using ClientService .
+ * Trieda na de-serializáciu objektov triedy Client na základe id. Využije
+ * CLientService na nájdenie entity s id získaným z JsonParser.
  * @see ClientService
+ * @see JsonParser
  */
 @Component
 class ClientDeserializer(vc: Class<*>?) : StdDeserializer<Client>(vc) {

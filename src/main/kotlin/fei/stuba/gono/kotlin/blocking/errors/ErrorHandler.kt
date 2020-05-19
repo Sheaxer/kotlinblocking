@@ -3,8 +3,9 @@ package fei.stuba.gono.kotlin.blocking.errors
 import fei.stuba.gono.kotlin.errors.ReportedOverlimitTransactionBadRequestException
 import fei.stuba.gono.kotlin.errors.ReportedOverlimitTransactionNotFoundException
 import org.springframework.http.HttpStatus
-import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.validation.ObjectError
+import org.springframework.web.HttpMediaTypeNotSupportedException
+import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseBody
@@ -13,16 +14,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import java.util.stream.Collectors
 
 /***
- * Class implementing custom error handling.
+ * Class that implements custom error handling.
+ * Trieda ktorá implementuje vlastné spravocanie výnimiek.
  */
 @RestControllerAdvice
 class ErrorHandler {
     /***
-     * Handles not found exception by returning the list containing the error code and sending the HTTP
-     * NOT_FOUND 404 code.
+     * Handles ReportedOverlimitTransactionNotFoundException
+     * by returning the error code and sending HTTP code NOT_FOUND - 404.
+     * Spracúváva ReportedOverlimitTransactionNotFoundException výnimku
+     * vrátením HTTP kódu 404 Not Found a chybovej hlášky v tele správy.
      * @param ex caught exception.
-     * @return List containing the error code.
-     * @see ReportedOverlimitTransactionNotFoundException
+     *           odchytená výnimka.
+     * @return The List containing the error message of ex.
+     * Zoznam obsahujúcí chybovú hlášku v ex.
      */
     @ExceptionHandler(ReportedOverlimitTransactionNotFoundException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -31,12 +36,16 @@ class ErrorHandler {
     {
         return listOf(ex.message)
     }
+
     /***
-     * Handles the bad request exception by returning the list containing the error code and sends the HTTP
-     * BAD_REQUEST 400 code.
-     * @param ex caught exception
-     * @return List containing the error code.
-     * @see ReportedOverlimitTransactionBadRequestException
+     * Handles ReportedOverlimitTransactionBadRequestException by returning
+     * the error code and sending HTTP code BAD_REQUEST - 400.
+     * Spracúvava ReportedOverlimitTransactionBadRequestException výnimku vrátením
+     * HTTP kódu BAD_REQUEST - 400 a chybovej hlášky v tele správy.
+     * @param ex caught exception.
+     *           odchytená výnimka.
+     * @return The list containing the error message of ex.
+     * Zoznam, ktorý obsahuje chybovú hlášku v ex.
      */
     @ExceptionHandler(ReportedOverlimitTransactionBadRequestException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -46,6 +55,17 @@ class ErrorHandler {
         return listOf(ex.message)
     }
 
+    /***
+     * Handles validation errors that occur during put and post REST methods. Returns
+     * HTTTP code BAD_REQUEST - 400 and list of validation errors.
+     * Spracuváva validačné výnimky ktoré môžu nastať počas PUT a POST REST metód. Vracia
+     * HTTP kód BAD_REQUEST - 400 a zoznam validačných chýb v tele odpovede.
+     * @param ex caught validation exception.
+     *           zachytená validačná výnimka.
+     * @return List of validation error messages.
+     * Zoznam validačných chyhových hlášok.
+     * @see MethodArgumentNotValidException
+     */
     @ExceptionHandler(org.springframework.validation.BindException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleValidationException(ex: org.springframework.validation.BindException) : List<String?>
@@ -55,11 +75,16 @@ class ErrorHandler {
                 .map { obj: ObjectError -> obj.defaultMessage }
                 .collect(Collectors.toList())
     }
+
     /***
-     * Handles validation errors by transforming into JSON array and returns the error codes with HTTP code
-     * BAD_REQUEST 400.
+     * Handles validation errors that occur during put and post REST methods. Returns
+     * HTTTP code BAD_REQUEST - 400 and list of validation errors.
+     * Spracuváva validačné výnimky ktoré môžu nastať počas PUT a POST REST metód. Vracia
+     * HTTP kód BAD_REQUEST - 400 a zoznam validačných chýb v tele odpovede.
      * @param ex caught validation exception.
+     *           zachytená validačná výnimka.
      * @return List of validation error messages.
+     * Zoznam validačných chyhových hlášok.
      * @see MethodArgumentNotValidException
      */
     @ExceptionHandler(MethodArgumentNotValidException::class)
@@ -73,15 +98,41 @@ class ErrorHandler {
     }
 
     /***
-     * Handles the HttpMessageNotReadableException
+     * Handles the HttpRequestMethodNotSupportedException.
+     * Spracuje HttpRequestMethodNotSupportedException výnimku.
      * @param ex caught exception.
-     * @return error code.
+     * @return "METHOD_NOT_ALLOWED" error code.
      */
-    @ExceptionHandler(HttpMessageNotReadableException::class)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    fun handleMethonNotSupported(ex: HttpRequestMethodNotSupportedException?): String {
+        return "METHOD_NOT_ALLOWED"
+    }
+
+    /***
+     * Handles the HttpRequestMethodNotSupportedException.
+     * Spracuje HttpRequestMethodNotSupportedException výnimku.
+     * @param ex caught exception.
+     * @return "MEDIATYPE_INVALID" error code.
+     */
+    @ExceptionHandler(HttpMediaTypeNotSupportedException::class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    fun handleMessageNotReadableException(
-            ex: HttpMessageNotReadableException?): String? {
-        return "MESSAGE_UNREADABLE"
+    fun handleTypeNotSupported(ex: HttpMediaTypeNotSupportedException?): String {
+        return "MEDIATYPE_INVALID"
+    }
+
+    /***
+     * Handles the HttpRequestMethodNotSupportedException.
+     * Spracuje HttpRequestMethodNotSupportedException výnimku.
+     * @param ex caught exception.
+     * @return "ILLEGAL_ARGUMENT" error code.
+     */
+    @ExceptionHandler(IllegalArgumentException::class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleIllegalArgument(ex: IllegalArgumentException?): String {
+        return "ILLEGAL_ARGUMENT"
     }
 }

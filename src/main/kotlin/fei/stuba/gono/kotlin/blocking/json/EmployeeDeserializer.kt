@@ -8,7 +8,10 @@ import fei.stuba.gono.kotlin.pojo.Employee
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 /***
- * Class that deserializes Employee entity by id. Retrieves the entity with the given id using the EmployeeService.
+ * Class that deserializes Employee entity by id. Retrieves the entity with the id given from
+ * JsonParser using the EmployeeService.
+ * Trieda, ktorá slúži na de-serializáciu objektov triedy Employee na základe id.
+ * Využije EmployeeService na získanie objektu na základe id z JsonParser.
  * @see EmployeeService
  */
 @Component

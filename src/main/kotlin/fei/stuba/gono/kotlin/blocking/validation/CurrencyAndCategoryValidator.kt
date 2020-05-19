@@ -8,8 +8,12 @@ import lombok.extern.slf4j.Slf4j
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
 /***
- * Class implementing validation of CurrencyAndCategory annotation for ReportedOverlimitTransaction.
+ * Class implementing validation of CurrencyAndCategory annotation for
+ * ReportedOverlimitTransaction.
  * Transaction cannot have Category DOMESTIC and use non EUR currency or have category FX and currency EUR.
+ * Trieda implementujúca validáciu objektu triedy ReportedOverlimitTransaction s anotáciou
+ * CurrencyAndCategory. Transakcia nesmie mať kategóriu (orderCategory premennú) OrderCategory.DOMESTIC a menu
+ * (amount.currency) inú ako Currency.EUR alebo kategóriu FX a nie menu EUR.
  * @see CurrencyAndCategory
  */
 @Slf4j

@@ -11,8 +11,11 @@ import javax.validation.ConstraintValidatorContext
 
 
 /***
- * Class implementing validation for DaysBeforeDate annotation. Date must be at least x number of in the future
+ * Class implementing validation Date object with DaysBeforeDate annotation.
+ * Date must be at least x number of in the future
  * from the moment of validation.
+ * Trieda implementujúca validáciu objektu triedy Date s DaysBeforeDate anotáciou.
+ * Dátum musí byť aspoň x počet dní v budúcnosti, než čas validácie.
  * @see DaysBeforeDate
  */
 @Slf4j
@@ -23,6 +26,8 @@ class DaysBeforeDateValidator: ConstraintValidator<DaysBeforeDate, Date> {
     /***
      * Minimal number of days - days property of DaysBeforeDate annotation or if not used
      * reportedOverlimitTransaction.daysBefore property, default 3.
+     * Minimálny počet dní - days premenná DaysBeforeDate anotácie alebo ak nie je zadaná,
+     * tak reportedOverlimitTransaction.daysBefore property, alebo predvolená hodnota 3.
      */
     @Value("\${reportedOverlimitTransaction.daysBefore:3}")
     var cDays:Long = 3L

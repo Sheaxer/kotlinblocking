@@ -8,8 +8,11 @@ import fei.stuba.gono.kotlin.pojo.OrganisationUnit
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 /***
- * Class that deserializes OrganisationUnit object from json based on its id. Retrieves the entity with the id using
+ * Class that deserializes OrganisationUnit object from json
+ * based on its id. Retrieves the entity with the id using
  * OrganisationUnitService.
+ * Trieda, ktorá de-serializuje objekty triedy OrganisationUnit z json na základe ich id.
+ * Využíva OrganisationUnitService na nájdenie objektu s id získaným z JsonParser-u.
  * @see OrganisationUnitService
  */
 @Component

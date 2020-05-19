@@ -10,7 +10,10 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 /***
- * REST controller for GET,POST,PUT and DELETE methods for ReportedOverlimitTransaction entities.
+ * REST controller for GET,POST,PUT and DELETE methods for ReportedOverlimitTransaction entities
+ * on /reportedOverlimitTransaction.
+ * REST kontrolér ktorý poskytuje prístup k zdroju ReportedOverlimitTransaction entitám cez metódy
+ * GET, PUT, POST a DELETE na /reportedOverlimitTransaction endpointe.
  * @see ReportedOverlimitTransaction
  */
 @Slf4j
@@ -19,11 +22,16 @@ import javax.validation.Valid
 class TransactionController @Autowired constructor(private val transactionService:
                                                    ReportedOverlimitTransactionService){
     /***
-     * Returns single ReportedOverlimitTransaction based on its  id.
+     * Returns single ReportedOverlimitTransaction based on its id.
+     * Vráti entitu triedy ReportedOverlimitTransaction podľa zadaného id.
      * @see ReportedOverlimitTransaction
-     * @param id Id of the requested ReportedOverlimitTransaction
-     * @return requested instance of ReportedOverlimitTransaction
-     * @throws ReportedOverlimitTransactionNotFoundException exception if there is no instance entity with the given id.
+     * @param id idd of the requested ReportedOverlimitTransaction.
+     *           id hľadanej entity.
+     * @return requested instance of ReportedOverlimitTransaction.
+     * hľadaná inštancia triedy ReportedOverlimitTransaction.
+     * @throws ReportedOverlimitTransactionNotFoundException
+     *     exception thrown if there is no instance entity with the given id.
+     *     výnimka vyvolaná, ak neexistuje entita so zadaným id.
      */
     @GetMapping("/{id}", produces = ["application/json"])
     @ResponseStatus(HttpStatus.OK)
@@ -34,9 +42,14 @@ class TransactionController @Autowired constructor(private val transactionServic
     }
 
     /***
-     * PUT method - saves the entity with the given id.
+     * PUT method - saves the entity with the given id (if an entity with the given id
+     * existed before it will be overwritten).
+     * PUT metóda - uloží entitu pod zadaným id (ak už entita so zaaaným id existovala, prepíše ju).
+     *
      * @param id id that will represent the saved entity.
+     *           id ktoré bude reprezentovať uloženú entitu.
      * @param transaction entity to be saved.
+     *                    entita ktorá má byť uložená.
      * @return saved entity.
      */
     @PutMapping("/{id}",produces = ["application/json"])
@@ -51,8 +64,9 @@ class TransactionController @Autowired constructor(private val transactionServic
 
     /***
      * POST method - generates new id and saves the entity with the new id.
-     * @param newTransaction entity to be saved
-     * @return saved entity.
+     * POST metóda - generuje nové id a uloží entitu s týmto id.
+     * @param newTransaction entity to be saved.entita, ktorá sa má uložiť.
+     * @return saved entity.uložená entita.
      */
     @PostMapping(produces = ["application/json"])
     @ResponseStatus(HttpStatus.OK)
@@ -64,12 +78,16 @@ class TransactionController @Autowired constructor(private val transactionServic
 
     /***
      * Deletes non-closed ReportedOverlimitTransaction with the request id from database.
+     * Zmaže entitu so zadaným id z databázy, ak nemá stav CLOSED.
      * @see ReportedOverlimitTransaction
      * @see fei.stuba.gono.kotlin.pojo.State
-     * @param id id of ReportedOverlimitTransaction that should be deleted
-     * @throws ReportedOverlimitTransactionNotFoundException if there is no entity with the given id.
-     * @throws ReportedOverlimitTransactionBadRequestException if the entity with given id cannot be deleted because its
-     * state is CLOSED.
+     * @param id id of the entity that should be deleted.
+     *           id entity, ktorá sa má zmazať.
+     * @throws ReportedOverlimitTransactionNotFoundException exception thrown if there is no entity
+     * with the given id. výnimka vyvolaná, ak entita so zadaným id neexistuje.
+     * @throws ReportedOverlimitTransactionBadRequestException exception thrown if the entity
+     * with given id cannot be deleted because its state is CLOSED.
+     * výnimka vyvolaná, ak entita so zadaným id nemôže byť vymazaná, pretože jej stav je CLOSED.
      */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

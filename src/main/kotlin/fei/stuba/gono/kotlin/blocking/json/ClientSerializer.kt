@@ -7,6 +7,7 @@ import fei.stuba.gono.kotlin.pojo.Client
 import org.springframework.stereotype.Component
 /***
  * Class to serialize Client by writing its id into JsonGenerator.
+ * Trieda na serializáciu objektov triedy Client - do JsonGenerator-a sa zapíše id objektu.
  */
 @Component
 class ClientSerializer(t: Class<Client>?) : StdSerializer<Client>(t) {

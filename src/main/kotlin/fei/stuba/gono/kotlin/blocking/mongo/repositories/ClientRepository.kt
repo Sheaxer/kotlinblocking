@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 /***
  * Interface extending CrudRepository for Client.
+ * Rozrhranie rozširujúce CrudRepository pre objekty triedy Client.
  * @see Client
  * @see CrudRepository
  */

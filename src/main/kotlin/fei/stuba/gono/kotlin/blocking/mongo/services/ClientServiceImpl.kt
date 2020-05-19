@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
 /***
- * Implementation of ClientService for use with MongoDB.
- * @see ClientService
+ * Implementation of ClientService using CRUD operations with auto generated instance of
+ * ClientRepository.
+ * Implementácia ClientService rozhrania pomocou CRUD operácií a automaticky generovanej inštancie
+ * rozhrania ClientRepository.
+ * @see ClientRepository
  */
 @Service
 class ClientServiceImpl @Autowired constructor(private val clientRepository: ClientRepository) : ClientService {

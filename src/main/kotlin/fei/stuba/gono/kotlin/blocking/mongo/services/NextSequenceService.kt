@@ -15,16 +15,21 @@ import org.springframework.data.mongodb.core.query.Update
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
 /***
- * Class that allows to perform operations on MongoDB.
+ * Service that generates next id value for storing data in MongoDB.
+ * Služba, ktorá generuje nasledujúcu hodnotu id použitú na uloženie entity do Mongo databázy.
  */
 @Service
 class NextSequenceService @Autowired constructor(private val mongoOperations: MongoOperations){
 
     /***
-     * Finds the sequence, gets id that will be used to insert new Document into MongoDB and updates the sequence
-     * to generate new id.
-     * @param seqName name of the sequence where to find next value of id
-     * @return new id to be used to insert new Document into MongoDB
+     * Increments the value of sequence with the given
+     * sequence name.
+     * Inkrementuje hodnotu sekvencie so zadaným menom.
+     * @see SequenceId
+     * @param seqName name of the sequence.
+     *                názov sekvencie.
+     * @return updated value of the sequence.
+     * aktualizovná hodnota sekvencie.
      */
     private fun getNextSequence(seqName: String): String {
         val counter = mongoOperations.findAndModify(
@@ -39,9 +44,13 @@ class NextSequenceService @Autowired constructor(private val mongoOperations: Mo
         return counter.seq.toString()
     }
     /***
-     * Sets value of sequence in MongoDB.
-     * @param seqName name of the sequence
-     * @param value value that the sequence will be set to
+     * Sets value of sequence with the given name.
+     * Nastaví hodnotu sekvencie so zadaným názvom.
+     * @see SequenceId
+     * @param seqName name of the sequence.
+     *                názov sekvencie.
+     * @param value value that the sequence will be set to.
+     *              hodnota na ktorú sa sekvencia nastaví.
      */
     private fun setNextSequence(seqName: String, value: String)
     {
@@ -53,11 +62,23 @@ class NextSequenceService @Autowired constructor(private val mongoOperations: Mo
         )
     }
     /***
-     * Generates the next id to be used when saving entity using given repository and updates the sequence
-     * with the given name.
-     * @param rep repository where the entity will be saved.
-     * @param sequenceName name of the sequence that holds the maximal value of id of entities saved in repository.
-     * @return new id value.
+     * Generates a new value of an id for saving new object in a database.
+     * Updates maximal value
+     * of sequence with the given name, checks if an entity with this id already exists in the repository.
+     * If it does exist, function finds the actual maximal value of id used to store entities in the repository and
+     * updates the sequence.
+     * Generuje novú hodnotu id na uloženie nového objektu do databázy. Aktualizuje
+     * maximálnu hodnotu sekvencie so zadaným menom, skontroluje či už existuje entita so zadaným id. Ak existuje,
+     * využije ďalšiu metódu na získanie skutočnej maximálnej hodnoty id v zadanom repozitáry a aktualizuje hodnotu
+     * sekvencie.
+     * @param rep repository where the object will be saved.
+     *            repozitár v ktorom bude objekt uložený.
+     * @param sequenceName name of the sequence holding the id of last saved object.
+     *                     názov sekvencie ktorá udržiava id posledného uloženého objektu.
+     * @return value of id that should be used to save object in
+     * the given repository.
+     * hodntota id ktoré by malo byť použité na uloženie
+     * objektu v zadanom repozitári.
      */
     fun getNewId(rep : CrudRepository<*,String>, sequenceName: String) : String
     {
@@ -75,10 +96,16 @@ class NextSequenceService @Autowired constructor(private val mongoOperations: Mo
         }
         return newId
     }
+
     /***
-     * Finds the maximal value of id of saved entities sof given class.
-     * @param rep class of entities.
-     * @return maximal value of id of saved entities of given class.
+     * Calculates the maximal id that was used to save an object of the given class.
+     * Transforms ids of all entities of the given class into long and finds the maximal value.
+     * Získa maximálnu hodnotu id ktoré bolo použité na uloženie objektu zadanej triedy.
+     * Transformuje id všetkých entít triedy do typu long a získa maximálnu hodnotu.
+     * @param rep class of the entities, must not be null.
+     *            trieda entít, nesmie byť null.
+     * @return string value of the maximal id of saved entity of the given class.
+     * hodnota maximálneho id použitého na uloženie entity zadanej triedy.
      */
     private fun lastId(rep: Class<*>): String {
         return mongoOperations.execute(rep) { mongoCollection: MongoCollection<Document> ->
@@ -98,10 +125,18 @@ class NextSequenceService @Autowired constructor(private val mongoOperations: Mo
             lastVal.toString()
         }!!
     }
+
     /***
-     * Checks if the sequence with given name needs to update its maximal id value by the given value.
-     * @param seqName - name of the sequence, must not be null.
-     * @param value - value to be checked against maximal id value, must not be null.
+     * Checks if the sequence with given name needs to update
+     * its maximal value. If the given value is larger than the maximal value stored in
+     * the sequence with the given name, it sets it to the new value.
+     * Skontroluje, či sekvencia so zadaným názvom potrebuje aktualizovať
+     * maximálnu hodnotu id. Ak je zadaná hodnota väčšia ako uložená maximálna hodnota, nastaví
+     * sa táto uložená hodnota na novú.
+     * @param seqName name of the sequence, must not be null.
+     *                názov sekvencie, nesmie byť null.
+     * @param value value to be checked against maximal id value, must not be null.
+     *            hodnota oproti ktorej sa uložená maximálna hodnota porovná.
      */
     fun needsUpdate(seqName: String, value: String)
     {

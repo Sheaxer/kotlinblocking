@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
 /***
- * Implementation of OrganisationUnitService for use with MongoDB.
- * @see OrganisationUnitService
+ * Implementation of OrganisationUnitService using CRUD operations and auto generated instance
+ * of OrganisationUnitRepository.
+ * Implementácia rozhrania OrganisationUnitService pomocou CRUD operácií a
+ * automaticky generovanej inštancie rozhrania OrganisationUnitRepository
+ * @see OrganisationUnitRepository
  */
 @Service
 class OrganisationUnitServiceImpl @Autowired constructor(

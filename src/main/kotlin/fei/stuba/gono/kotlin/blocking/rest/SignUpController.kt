@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
-
+/***
+ * Rest Controller allowing POST method to endpoint /signup to register a new employee.
+ * Rest kontrolér poskytujúci POST metódou na /signup endpoint-e, ktorá umožnuje
+ * pridanie nového zamestnanca.
+ */
 @RestController
 class SignUpController @Autowired constructor(private val employeeService: EmployeeService) {
     @PostMapping(value = ["/signup"], consumes = ["application/json"])

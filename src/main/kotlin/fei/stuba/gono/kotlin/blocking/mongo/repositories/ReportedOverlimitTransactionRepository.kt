@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 /***
  * Interface extending CrudRepository for ReportedOverlimitTransaction.
+ * Rozhranie rozširujúce CrudRepository pre objekty triedy ReportedOverlimitTransaction.
  * @see ReportedOverlimitTransaction
  * @see CrudRepository
  */

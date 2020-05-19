@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
 /***
- * Implementation of AccountService for use with MongoDB that Uses CRUD repository.
- * @see AccountService
+ * Implementation of AccountService using CRUD operations and auto generated instance of
+ * AccountRepository.
+ * Implementácia AccountService pomocou CRUD operácií a automaticky generovanej
+ * inštancie AccountRepository.
+ * @see AccountRepository
  */
 @Service
 class AccountServiceImpl @Autowired constructor(private val accountRepository: AccountRepository) : AccountService {
